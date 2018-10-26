@@ -2,10 +2,12 @@
 C'est notre framework
 
 ## Génération de l'app (serveur)
+Exemple : `{
+    "port": 8080
+}`
 
 ## Création de model
-À partir d'un modèle par défaut(?)
-- Par fichier de configuration
+Par fichier de configuration : dans le dossier 'model', un fichier par modèle.
 Exemple : `{
     name: 'User'
     attributes: {
@@ -19,9 +21,6 @@ Exemple : `{
         }
     }
 }`
-- Par méthode (nom du modele, propriétés, relations)
-`creerModele('User',{id: 'number',name: 'string'},{relations: {teams: {model: 'Team',type: 'belongsToMany'}}})`
-- Par CLI
 
 Une fois le modèle généré (avec schema typeorm etc + sqlite)
 ## Génération du controller avec les routes
@@ -29,4 +28,4 @@ Une fois le modèle généré (avec schema typeorm etc + sqlite)
 
 ## Génération de vue
 - Pug
-- Faire en sorte que l'utilisateur peut customiser ça
+- Faire en sorte que l'utilisateur puisse customiser ça
