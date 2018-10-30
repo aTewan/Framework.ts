@@ -1,4 +1,4 @@
-# lol.ts
+# Framework.ts
 C'est notre framework
 
 ## Génération de l'app (serveur)
