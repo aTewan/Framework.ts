@@ -6,7 +6,7 @@ import * as bodyParser from 'body-parser'
 import { isNumber, isString } from 'util';
 
 import { mongoConfig } from './db'
-import { VALEUR_PAS_NUMERIQUE, PAS_DE_PORT } from './erreurs'
+import { VALEUR_PAS_NUMERIQUE, PAS_DE_PORT, MEME_PORT_DB_SERVER } from './erreurs'
 
 /**
  * @class Server
@@ -35,10 +35,15 @@ export class Server {
         this.middlewares();
         this.port = await this.recupererPort();
         if(this.port !== undefined) {
-            this.app.listen(this.port, () => {
-                console.log(`http://localhost:${this.port}`);
-                console.log(mongoConfig);
-            })
+            if(this.port !== mongoConfig.port) {
+                this.app.listen(this.port, () => {
+                    console.log(`http://localhost:${this.port}`);
+                    console.log(mongoConfig);
+                })
+            }
+            else {
+                console.log(MEME_PORT_DB_SERVER);
+            }
         }
         else {
             console.log(VALEUR_PAS_NUMERIQUE)

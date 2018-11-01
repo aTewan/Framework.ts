@@ -27,7 +27,13 @@ class MongoConfig implements Serializable<MongoConfig> {
     this.pass = input.pass;
     this.db = input.db;
     this.host = input.host;
-    this.port = input.port;
+    
+    if(input.port !== null) {
+      this.port = input.port;
+    }
+    else {
+      this.port = 27017;
+    }
     this.authMechanism = input.authMechanism;
 
     return this;
