@@ -1,6 +1,7 @@
 import * as express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
+import * as bodyParser from 'body-parser' 
 
 import { isNumber, isString } from 'util';
 
@@ -31,6 +32,7 @@ export class Server {
      */
     public async run() {
         this.app = express();
+        this.middlewares();
         this.port = await this.recupererPort();
         if(this.port !== undefined) {
             this.app.listen(this.port, () => {
@@ -43,6 +45,15 @@ export class Server {
         }
     }
 
+    /**
+     * Méthode permettant d'utiliser les middlewares
+     * @memberof Server
+     * @returns {void}
+     */
+    private middlewares(): void {
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: false }));
+    }
     /**
      * Méthode permettant de récupérer le port renseigné dans le fichier de config
      * @memberof Server
