@@ -2,6 +2,7 @@ import * as express from 'express'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as bodyParser from 'body-parser' 
+import * as mongoose from 'mongoose'
 
 import { isNumber, isString } from 'util';
 
@@ -34,12 +35,22 @@ export class Server {
         this.app = express();
         this.middlewares();
         this.port = await this.recupererPort();
+
+        const mongoURI = `mongodb://${mongoConfig.user}` + ( mongoConfig.pass ? ':' + mongoConfig.pass : '') + 
+        `@${mongoConfig.host}:${mongoConfig.port}/${mongoConfig.db}` + 
+        (mongoConfig.authMechanism ? '?authMechanism=' + mongoConfig.authMechanism : '');
+
         if(this.port !== undefined) {
             if(this.port !== mongoConfig.port) {
-                this.app.listen(this.port, () => {
-                    console.log(`http://localhost:${this.port}`);
-                    console.log(mongoConfig);
-                })
+                mongoose.connect(mongoURI, { useNewUrlParser: true })
+                    .then(() => {
+                        this.app.listen(this.port, () => {
+                            console.log(`Le serveur tourne sur ${this.port}.\nLa bdd sur ${mongoConfig.port}.`);
+                        })
+                    })
+                    .catch((err) => {
+                        console.log('Impossible de se connecter à MongoDB:', err)
+                    });
             }
             else {
                 console.log(MEME_PORT_DB_SERVER);

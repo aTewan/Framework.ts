@@ -1,8 +1,8 @@
 {
     "user": "",
     "pass": "",
-    "db": "",
-    "host": "",
+    "db": "db",
+    "host": "localhost",
     "port": null,
     "authMechanism": ""
 }
