@@ -1,8 +1,8 @@
 {
     "user": "",
     "pass": "",
-    "db": "db",
+    "db": "expressing",
     "host": "localhost",
-    "port": null,
+    "port": 27017,
     "authMechanism": ""
 }
