@@ -1,0 +1,32 @@
+{
+  "name": "lol.ts",
+  "version": "1.0.0",
+  "description": "C'est notre framework",
+  "main": "index.js",
+  "dependencies": {
+    "@types/express": "^4.16.0",
+    "@types/mongoose": "^5.2.22",
+    "@types/node": "^10.12.0",
+    "body-parser": "^1.18.3",
+    "chalk": "^2.4.1",
+    "commander": "^2.19.0",
+    "express": "^4.16.4",
+    "fs": "^0.0.1-security",
+    "mongoose": "^5.3.8",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aTewan/lol.ts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aTewan/lol.ts/issues"
+  },
+  "homepage": "https://github.com/aTewan/lol.ts#readme"
+}

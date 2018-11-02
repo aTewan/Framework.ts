@@ -1,4 +1,4 @@
-# lol.ts
+# Framework.ts
 C'est notre framework
 
 ## Génération de l'app (serveur)
@@ -22,9 +22,6 @@ Exemple : `{
     }
 }`
 
-Une fois le modèle généré (avec schema typeorm etc + sqlite)
-## Génération du controller avec les routes
-- Définition des 4 routes basiques (`GET`,`POST`,`UPDATE`,`DELETE`)
 
 ## Génération de vue
 - Pug
