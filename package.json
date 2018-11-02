@@ -12,6 +12,7 @@
     "commander": "^2.19.0",
     "express": "^4.16.4",
     "fs": "^0.0.1-security",
+    "generate-schema": "^2.6.0",
     "mocha": "^5.2.0",
     "mongoose": "^5.3.8",
     "node-ts": "^2.1.2",
