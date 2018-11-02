@@ -1,0 +1,17 @@
+[
+    {
+        "name": "default",
+        "controller": "DefaultController",
+        "route": "/"
+    },
+    {
+        "name": "register",
+        "controller": "RegisterController",
+        "route": "/register"
+    },
+    {
+        "name": "login",
+        "controller": "LoginController",
+        "route": "/login"
+    }
+]
