@@ -1,28 +1,12 @@
 # Framework.ts
 C'est notre framework
 
-## Génération de l'app (serveur)
-Exemple : `{
-    "port": 8080
-}`
+## Ce qui a été fait
+- Génération du serveur à partir d'un fichier de configuration contenant le port : `src/config/server-config.json`
+- Génération de la base de données à partir d'un fichier de configuration contenant les infos : `src/config/db-config.json`
+- Génération des schémas mongoose à partir des fichiers JSON de modèles : `src/models/`
 
-## Création de model
-Par fichier de configuration : dans le dossier 'model', un fichier par modèle.
-Exemple : `{
-    name: 'User'
-    attributes: {
-        id: 'number',
-        name: 'string'
-    },
-    relations: {
-        teams: {
-            model: 'Team',
-            type: 'belongsToMany'
-        }
-    }
-}`
-
-
-## Génération de vue
-- Pug
-- Faire en sorte que l'utilisateur puisse customiser ça
+## Ce qui reste à faire 
+- Génération du CRUD de base à partir des fichiers JSON
+- Génération de Javadoc possible
+- Swagger
