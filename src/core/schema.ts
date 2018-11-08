@@ -2,7 +2,7 @@ const generateSchema = require('generate-schema')
 import * as fs from 'fs'
 import * as path from 'path'
 import * as mongoose from 'mongoose'
-
+import * as express from 'express'
 
 /**
  * Méthode permettant de générer un schéma mongoose à partir d'un fichier JSON.
@@ -19,7 +19,7 @@ export function JsonToMongooseSchema(p: string): mongoose.Schema {
  * Méthode qui boucle sur tout le dossier models et qui va générer tous les schémas mongoose à partir des
  * fichiers JSON construit par l'utilisateur. 
  */
-export function JsonModelsToMongooseSchemas() {
+export function JsonModelsToMongooseSchemas(app: express.Application) {
     let p = path.join(__dirname, '../models');
     fs.readdir(p, (err, files) => {
         if(err) {
@@ -41,6 +41,8 @@ export function JsonModelsToMongooseSchemas() {
                     } catch(err) {
                         models = mongoose.model(filename, schema)
                     }
+                    app.use(`/api/${filename}`,require('./crud')(mongoose.model(filename)))
+                    console.log((mongoose.model(filename)))
                     console.log(filename)
                 });
             }
