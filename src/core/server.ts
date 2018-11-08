@@ -8,34 +8,34 @@ import { isNumber, isString } from 'util';
 
 import { mongoConfig } from './db'
 import { JsonModelsToMongooseSchemas } from './schema'
-import { VALEUR_PAS_NUMERIQUE, PAS_DE_PORT, MEME_PORT_DB_SERVER } from './erreurs'
+import { NO_PORT, NOT_NUMERICAL_VALUE, SAME_PORT_DB_SERVER} from './errors'
 
 /**
  * @class Server
  */
 export class Server {
     /**
-     * Représente l'express application du serveur
+     * Represents express application of the server
      * @type {express.Application}
      * @memberof Server
      */
     private app: express.Application
 
     /**
-     * Représente le port sur lequel le serveur va se lancer
+     * Represents the port used for the server
      * @type {Number}
      * @memberof Server
      */
     private port: Number
 
     /**
-     * Méthode permettant de lancer le serveur
+     * Method which is able to run the server
      * @memberof Server
      */
     public async run() {
         this.app = express();
         this.middlewares();
-        this.port = await this.recupererPort();
+        this.port = await this.getPort();
 
         const mongoURI = `mongodb://${mongoConfig.user}` + ( mongoConfig.pass ? ':' + mongoConfig.pass : '') + 
         `@${mongoConfig.host}:${mongoConfig.port}/${mongoConfig.db}` + 
@@ -46,20 +46,20 @@ export class Server {
                 mongoose.connect(mongoURI, { useNewUrlParser: true })
                     .then(() => {
                         this.app.listen(this.port, () => {
-                            console.log(`Le serveur tourne sur ${this.port}.\nLa bdd sur ${mongoConfig.port}.`);
+                            console.log(`The server is running on ${this.port}.\nThe database is running on ${mongoConfig.port}.`);
                             JsonModelsToMongooseSchemas(this.app);
                         })
                     })
                     .catch((err) => {
-                        console.log('Impossible de se connecter à MongoDB:', err)
+                        console.log('Impossible to connect to MongoDB:', err)
                     });
             }
             else {
-                console.log(MEME_PORT_DB_SERVER);
+                console.log(SAME_PORT_DB_SERVER);
             }
         }
         else {
-            console.log(VALEUR_PAS_NUMERIQUE)
+            console.log(NOT_NUMERICAL_VALUE)
         }
     }
 
@@ -77,7 +77,7 @@ export class Server {
      * @memberof Server
      * @returns {Number}
      */
-    private recupererPort(): Number {
+    private getPort(): Number {
         let p = path.join(__dirname, '../config/server-config.json');
         let PORT: Number;
         let json = JSON.parse(fs.readFileSync(p,'utf8'));
@@ -95,7 +95,7 @@ export class Server {
         }
         else {
             PORT= 3000;
-            console.log(`${PAS_DE_PORT} ${PORT}`)
+            console.log(`${NO_PORT} ${PORT}`)
         }
         return PORT;
     }
