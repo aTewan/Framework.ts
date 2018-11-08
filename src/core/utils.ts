@@ -3,12 +3,12 @@ import * as path from 'path'
 
 
 /**
- * Méthode permettant de savoir si un dossier est vide ou pas
- * @param chemin 
- * @returns booléen
+ * Method which checks if a folder is empty or not
+ * @param _path 
+ * @returns boolean
  */
-export function isDossierVide(chemin: string): Promise<boolean> {
-    let p = path.join(`${__dirname}/${chemin}`)
+export function isFolderEmpty(_path: string): Promise<boolean> {
+    let p = path.join(`${__dirname}/${_path}`)
     return new Promise((resolve, reject) => {
         fs.readdir(p, (err, files) => {
             if(err) return reject(err)
