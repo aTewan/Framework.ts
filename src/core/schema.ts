@@ -3,25 +3,23 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as mongoose from 'mongoose'
 
-export function genererMongooseSchema(p: string): mongoose.Schema {
+
+/**
+ * Méthode permettant de générer un schéma mongoose à partir d'un fichier JSON.
+ * @param p Chemin du fichier JSON qui doit être converti
+ * @returns Retourne un schéma mongoose
+ */
+export function JsonToMongooseSchema(p: string): mongoose.Schema {
     let json: any = JSON.parse(fs.readFileSync(p,'utf8'));
-    console.log(json)
-    console.log("Schéma :")
-    let mongooseSchema: any = generateSchema.mongoose(json);
-    return <mongoose.Schema> mongooseSchema
+    let mongooseSchema: mongoose.Schema = <mongoose.Schema>generateSchema.mongoose(json);
+    return mongooseSchema
 }
 
 /**
- * Parcourir tout le dossier models
- * -> check s'il y a des fichiers json de définition de model
- * ->prendre le titre du fichier
- * -> Pour chaque
- * -> génération du schema mongoose
- * -> mongoose.model(nom_modele, schemaGénéré)
+ * Méthode qui boucle sur tout le dossier models et qui va générer tous les schémas mongoose à partir des
+ * fichiers JSON construit par l'utilisateur. 
  */
-//genererMongooseSchema(path.join(__dirname, `../models/todo.json`));
-
-export function parcourirDossierModels() {
+export async function JsonModelsToMongooseSchemas() {
     let p = path.join(__dirname, '../models');
     fs.readdir(p, (err, files) => {
         if(err) {
@@ -35,7 +33,7 @@ export function parcourirDossierModels() {
                 console.log(`Il y a ${files.length} fichiers dans le dossier models`)
                 files.forEach(file => {
                     let p: string = path.join(__dirname, `../models/${file}`);
-                    let schema = genererMongooseSchema(p)
+                    let schema = JsonToMongooseSchema(p)
                     let filename = file.split('.').slice(0, -1).join('.');
                     let models;
                     try {
@@ -49,5 +47,3 @@ export function parcourirDossierModels() {
         }
     })
 }
-
-parcourirDossierModels();
