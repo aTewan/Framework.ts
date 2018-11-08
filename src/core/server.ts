@@ -7,7 +7,7 @@ import * as mongoose from 'mongoose'
 import { isNumber, isString } from 'util';
 
 import { mongoConfig } from './db'
-import { parcourirDossierModels } from './schema'
+import { JsonModelsToMongooseSchemas } from './schema'
 import { VALEUR_PAS_NUMERIQUE, PAS_DE_PORT, MEME_PORT_DB_SERVER } from './erreurs'
 
 /**
@@ -47,7 +47,7 @@ export class Server {
                     .then(() => {
                         this.app.listen(this.port, () => {
                             console.log(`Le serveur tourne sur ${this.port}.\nLa bdd sur ${mongoConfig.port}.`);
-                            parcourirDossierModels();
+                            JsonModelsToMongooseSchemas(this.app);
                         })
                     })
                     .catch((err) => {

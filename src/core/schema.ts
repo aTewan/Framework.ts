@@ -42,8 +42,6 @@ export function JsonModelsToMongooseSchemas(app: express.Application) {
                         models = mongoose.model(filename, schema)
                     }
                     app.use(`/api/${filename}`,require('./crud')(mongoose.model(filename)))
-                    console.log((mongoose.model(filename)))
-                    console.log(filename)
                 });
             }
         }

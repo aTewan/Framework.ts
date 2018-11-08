@@ -17,10 +17,8 @@ module.exports = (Objet: mongoose.Model<mongoose.Document, {}>) => {
         });
     }
 
-  // =========
-  // Read All
-  // =========
-  const readAll:any = (req: express.Request,res: express.Response):void  => {   
+
+const readAll:any = (req: express.Request,res: express.Response):void  => {   
     Objet.find((e:any,retour:any) => {
         if(e) {
             console.log(e);
@@ -31,12 +29,9 @@ module.exports = (Objet: mongoose.Model<mongoose.Document, {}>) => {
             res.send(retour);
         }
     })
-  };
+};
 
-  // ========
-  // Read Id
-  // ========
-  const readId:any = (req: express.Request, res: express.Response): void => {
+const readId:any = (req: express.Request, res: express.Response): void => {
     const id:number = req.params.id;
 
     Objet.findById(id, (e:any,retour:any) => {
@@ -50,16 +45,13 @@ module.exports = (Objet: mongoose.Model<mongoose.Document, {}>) => {
         }
     })
 }
-  
-  // ======
-  // Update
-  // ======
-  const update:any = (req: express.Request, res: express.Response): void =>  {
+
+const update:any = (req: express.Request, res: express.Response): void =>  {
 
     const id:number = req.params.id;
     const entreeModifiee = req.body;
 
-    Objet.update(id, entreeModifiee, (e:any) => {
+    Objet.updateOne(id, entreeModifiee, (e:any) => {
         if(e) {
             console.log(e);
             res.sendStatus(500);
@@ -70,16 +62,13 @@ module.exports = (Objet: mongoose.Model<mongoose.Document, {}>) => {
         }
     })
 
-  };
-  
-  // ======
-  // Remove
-  // ======
-  const remove:any = (req: express.Request, res: express.Response): void => {
+};
+
+const remove:any = (req: express.Request, res: express.Response): void => {
 
     const id:number = req.params.id;
 
-    Objet.remove(id, (e:any) => {
+    Objet.deleteOne(id, (e:any) => {
         if(e) {
             console.log(e);
             res.sendStatus(500);
@@ -90,18 +79,18 @@ module.exports = (Objet: mongoose.Model<mongoose.Document, {}>) => {
         }
     })
 
-  };
+};
 
-  // ======
-  // Routes
-  // ======
-  let router: express.Router = express.Router();
+// ======
+// Routes
+// ======
+let router: express.Router = express.Router();
 
-  router.post('/', create);
-  router.get('/', readAll);
-  router.get('/:_id', readId);
-  router.put('/:_id', update);
-  router.delete('/:_id', remove);
+router.post('/', create);
+router.get('/', readAll);
+router.get('/:_id', readId);
+router.put('/:_id', update);
+router.delete('/:_id', remove);
 
-  return router;
+return router;
 }
