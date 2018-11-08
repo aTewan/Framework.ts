@@ -30,7 +30,7 @@ export function JsonModelsToMongooseSchemas(app: express.Application) {
                 console.log("ERREUR : Le dossier est vide, aucun modèle n'a été crée")
             }
             else {
-                console.log(`Il y a ${files.length} fichiers dans le dossier models`)
+                console.log(`${files.length} modèles sont configurés dans le dossier 'models':`)
                 files.forEach(file => {
                     let p: string = path.join(__dirname, `../models/${file}`);
                     let schema = JsonToMongooseSchema(p)
@@ -42,7 +42,9 @@ export function JsonModelsToMongooseSchemas(app: express.Application) {
                         models = mongoose.model(filename, schema)
                     }
                     app.use(`/api/${filename}`,require('./crud')(mongoose.model(filename)))
+                    console.log(`Model: /${filename}`)
                 });
+
             }
         }
     })
