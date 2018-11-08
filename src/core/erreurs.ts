@@ -1,10 +1,10 @@
 import chalk from 'chalk'
 
-const err = `Erreur : `
-const war = `Attention : `;
+const err = `Error : `
+const war = `Warning : `;
 
-export const VALEUR_PAS_NUMERIQUE: String = chalk.bold.red(`${err} La valeur renseignée pour le port n'est pas une valeur numérique.`);
+export const NOT_NUMERICAL_VALUE: String = chalk.bold.red(`${err} The value used for port isn't a numerical value.`);
 
-export const PAS_DE_PORT: String = chalk.bold.yellow(`${war} Vous n'avez pas renseigné de valeur pour le port, la valeur par défaut est`);
+export const NO_PORT: String = chalk.bold.yellow(`${war} Port's value is still null in the file server-config.json, the default value is `);
 
-export const MEME_PORT_DB_SERVER: String = chalk.bold.red(`${err} La base de données et le serveur ne peuvent pas utiliser le même port.`);
+export const SAME_PORT_DB_SERVER: String = chalk.bold.red(`${err} The database and the server are using the same port.`);
