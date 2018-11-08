@@ -19,7 +19,7 @@ export function JsonToMongooseSchema(p: string): mongoose.Schema {
  * Méthode qui boucle sur tout le dossier models et qui va générer tous les schémas mongoose à partir des
  * fichiers JSON construit par l'utilisateur. 
  */
-export async function JsonModelsToMongooseSchemas() {
+export function JsonModelsToMongooseSchemas() {
     let p = path.join(__dirname, '../models');
     fs.readdir(p, (err, files) => {
         if(err) {
