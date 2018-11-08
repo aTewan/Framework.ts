@@ -1,6 +1,6 @@
 import * as commander from 'commander'
 import * as fs from 'fs'
-import * as inquirer from 'inquirer'
+import * as inquirer from '@types/inquirer'
 import * as util from 'util'
 
 import { Server } from './server'
@@ -51,7 +51,7 @@ export class Configurer {
 
           inquirer
             .prompt(questions)
-            .then(answers => {
+            .then((answers) => {
                 console.log(answers)                
             })
     }
