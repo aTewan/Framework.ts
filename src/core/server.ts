@@ -46,12 +46,12 @@ export class Server {
                 mongoose.connect(mongoURI, { useNewUrlParser: true })
                     .then(() => {
                         this.app.listen(this.port, () => {
-                            console.log(`Le serveur tourne sur ${this.port}.\nLa bdd sur ${mongoConfig.port}.`);
+                            console.log(`The server is running on ${this.port}.\nThe database is running on ${mongoConfig.port}.`);
                             JsonModelsToMongooseSchemas(this.app);
                         })
                     })
                     .catch((err) => {
-                        console.log('Impossible de se connecter à MongoDB:', err)
+                        console.log('Impossible to connect to MongoDB:', err)
                     });
             }
             else {
