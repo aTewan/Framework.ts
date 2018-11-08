@@ -14,7 +14,7 @@ Tout d'abord, si ce n'est pas déjà fait, vous devez [télécharger et installe
 Puis, procédez à l'installation de **ExpressionJS** à l'aide de la commande npm install :
 
 ```bash
-$ npm install expression-js
+$ npm install ynov-expressionjs
 ```
 
 ## Démarrage rapide

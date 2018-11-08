@@ -1,5 +1,5 @@
 {
-  "name": "expression-js",
+  "name": "ynov-expressionjs",
   "version": "1.0.0",
   "description": "ExpressionJS framework en TypeScript basé sur ExpressJS et NodeJS.",
   "main": "index.ts",
