@@ -1,6 +1,10 @@
 import * as path from 'path'
 import * as fs from 'fs'
 
+/**
+ * Interface for MongoConfig Object
+ * @interface
+ */
 interface IMongoConfig {
   user: String
   pass: String | null
@@ -10,10 +14,18 @@ interface IMongoConfig {
   authMechanism: String | null
 }
 
+/**
+ * Interface in order to make IMongoConfig serializable
+ * @interface
+ */
 interface Serializable<T> {
   deserialize(input: IMongoConfig): T;
 }
 
+/**
+ * MongoConfig's class
+ * @class
+ */
 class MongoConfig implements Serializable<MongoConfig> {
   user: String
   pass: String | null
@@ -22,12 +34,17 @@ class MongoConfig implements Serializable<MongoConfig> {
   port: Number | null
   authMechanism: String | null
 
+  /**
+   * Method which make us able to instanciate a JSON file into a MongoConfig object
+   * @memberof MongoConfig
+   * @param input 
+   */
   deserialize(input: IMongoConfig): MongoConfig {
     this.user = input.user;
     this.pass = input.pass;
     this.db = input.db;
     this.host = input.host;
-    
+
     if(input.port !== null) {
       this.port = input.port;
     }
@@ -40,7 +57,10 @@ class MongoConfig implements Serializable<MongoConfig> {
   }
 }
 
-function recupererMongoConfig(): MongoConfig {
+/**
+ * Method which get the mongo config from db-config.json
+ */
+function getMongoConfig(): MongoConfig {
   let p = path.join(__dirname, '../config/db-config.json');
   let json: JSON = JSON.parse(fs.readFileSync(p,'utf8'));
   let mongoConfig = new MongoConfig().deserialize(<IMongoConfig><unknown>json);
@@ -48,4 +68,4 @@ function recupererMongoConfig(): MongoConfig {
 }
 
 
-export const mongoConfig: MongoConfig = recupererMongoConfig();
+export const mongoConfig: MongoConfig = getMongoConfig();
