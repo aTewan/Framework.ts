@@ -1,4 +1,4 @@
-import * as generateSchema from 'generate-schema'
+const generateSchema = require('generate-schema')
 import * as fs from 'fs'
 import * as path from 'path'
 import * as mongoose from 'mongoose'
