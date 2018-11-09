@@ -7,7 +7,7 @@ import * as express from 'express'
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
 
-import {generateSwaggerModel, /* generateSwaggerParams */} from './swaggerModel' 
+import {generateSwaggerPath, generateSwaggerTags, /* generateSwaggerParams */} from './swaggerModel' 
 
 /**
  * Méthode permettant de générer un schéma mongoose à partir d'un fichier JSON.
@@ -54,10 +54,15 @@ export function JsonModelsToMongooseSchemas(app: express.Application) {
                     console.log(`Model: /${filename}`)
 
                     // Insert routes in swagger
-                    const swaggerModel = generateSwaggerModel(filename)
+                    const swaggerPaths = generateSwaggerPath(filename, false)
+                    // const swaggerPathsId = generateSwaggerPath(filename, true)
+                    const swaggerTags = generateSwaggerTags(filename)
+
+
                     // const swaggerParams = generateSwaggerParams(p, filename)
                     const tag = filename.charAt(0).toUpperCase() + filename.slice(1)
-                    swaggerDocument.paths[`${filename}s`] = swaggerModel
+                    swaggerDocument.paths[`/${filename}`] = swaggerPaths
+                    swaggerDocument.tags.push(swaggerTags)
                     // swaggerDocument.definitions[`${filename}`].properties = swaggerParams
 
                 });

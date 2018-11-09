@@ -1,58 +1,111 @@
-import * as fs from 'fs'
-import { objects } from 'inquirer';
-import { type } from 'os';
-
 /**
- * Méthode qui genere le modele utilisé dans swagger.json pour une route établie dans 'models'
- * @param routeName Nom de la route qui appelé
- * @returns Retourne un objet utilisé dans swagger.json
+ * Generate automatically swagger.json
+ * @param routeName Name of route called
+ * @returns Return object used in swagger.json
  */
-export function generateSwaggerModel(routeName: string): Object{
+export function generateSwaggerPath(routeName: string, idOrNot: boolean): Object{
     const tag = routeName.charAt(0).toUpperCase() + routeName.slice(1)
-    return {
-        "post": {
-            "tags": [
-                tag
-            ],
-            "description": `Create new ${routeName} in database`,
-            "parameters": [
-            {
-                "name": routeName,
-                "in": "body",
-                "description": `${tag} that we want to create`,
-                "schema": {
-                "$ref": `#/definitions/${tag}`
-                }
-            }
-            ],
-            "produces": [
-                "application/json"
-            ],
-            "responses": {
-            "200": {
-                "description": `New ${routeName} is created`,
-                "schema": {
-                    "$ref": `#/definitions/${tag}`
-                }
-            }
-            }
-        },
-        "get": {
-            "tags": [
-                `${tag}s`
-            ],
-            "summary": `Get all ${routeName}s in system`,
-            "responses": {
-                "200": {
-                    "description": "OK",
+    if(!idOrNot){
+        return {
+            "post": {
+                "tags": [
+                    tag
+                ],
+                "summary": `Create new ${routeName} in database`,
+                "description": `Create new ${routeName} in database`,
+                "parameters": [
+                {
+                    "name": routeName,
+                    "in": "body",
+                    "description": `${tag} that we want to create`,
                     "schema": {
-                        "$ref": `#/definitions/${tag}s`
+                    "$ref": `#/definitions/${tag}`
+                    }
+                }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                "200": {
+                    "description": `New ${routeName} is created`,
+                    "schema": {
+                        "$ref": `#/definitions/${tag}`
+                    }
+                }
+                }
+            },
+            "get": {
+                "tags": [
+                    `${tag}`
+                ],
+                "summary": `Get all ${routeName}s in system`,
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": `#/definitions/${tag}`
+                        }
+                    }
+                }
+            },
+        }
+    } else {
+        return {
+            "get": {
+                "tags": [
+                    `${tag}`
+                ],
+                "summary": `Get ${routeName} in system`,
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": `#/definitions/${tag}`
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    `${tag}`
+                ],
+                "summary": `Delete ${routeName} in system`,
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": `#/definitions/${tag}`
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    `${tag}`
+                ],
+                "summary": `Put ${routeName} in system`,
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": `#/definitions/${tag}`
+                        }
                     }
                 }
             }
         }
     }
+    
 };
+
+export function generateSwaggerTags(routeName: string){
+    const tag = routeName.charAt(0).toUpperCase() + routeName.slice(1)
+    return {
+        "name": tag,
+        "description": `API for ${routeName}s in the system`
+    }
+}
 
 // export function generateSwaggerParams(pathModel: string, routeName: string): any {
 //     let params : { [key:string]: any } = {};
