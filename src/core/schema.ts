@@ -8,6 +8,7 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger.json')
 
 import {generateSwaggerPath, generateSwaggerTags, /* generateSwaggerParams */} from './swaggerModel' 
+import { EMPTY_FOLDER_NO_MODELS } from './errors'
 
 /**
  * Méthode permettant de générer un schéma mongoose à partir d'un fichier JSON.
@@ -35,10 +36,10 @@ export function JsonModelsToMongooseSchemas(app: express.Application) {
         }
         else {
             if(!files.length) {
-                console.log("ERREUR : Le dossier est vide, aucun modèle n'a été crée")
+                console.log(EMPTY_FOLDER_NO_MODELS)
             }
             else {
-                console.log(`${files.length} modèles sont configurés dans le dossier 'models':`)
+                console.log(`${files.length} models have been configured on 'models':`)
                 files.forEach(file => {
                     let p: string = path.join(__dirname, `../models/${file}`);
                     let schema = JsonToMongooseSchema(p)
